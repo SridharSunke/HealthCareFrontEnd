@@ -1,0 +1,42 @@
+<div class="row form-horizontal">
+  <button style="margin-left: 777px" type="button" routerLink="/userManagement/new" routerLinkActive="active"> Create New User</button>
+    <form  [formGroup]="userSearchForm" (ngSubmit)="searchUsersPost()">
+        <div class="col-sm-12 col-sm-6">
+            <label>First Name</label> <input formControlName ="firstName" type="text" name="firstName" value="">
+        </div>
+        <div class="col-sm-12 col-sm-6"><label>Last Name</label> <input type="text" formControlName ="lastName"
+                name="lastName" value="">
+        </div>
+        <div class="col-sm-12 col-sm-6"><label>Department ID</label> 
+          <select formControlName="departmentId" class="form-control">  
+            <option value="">Choose Department</option>  
+            <option *ngFor="let dep of departments" value="{{dep.id}}">{{dep.name}}</option>  
+        </select>  
+          
+          
+  </div>
+        <div style="margin-left: 777px">
+        <button (click)="userSearchForm.reset()">Clear</button>
+        <button type="submit">Search</button>
+      </div>
+    </form>
+</div>
+
+<table>
+    <tr>
+      <th> ID</th>
+        <th> First Name</th>
+        <th> Last Name</th>
+        <th> Department</th>
+        <th> Action</th>
+    </tr>
+    <ng-template let-user ngFor [ngForOf]="users">
+      <tr >
+        <td>{{user.id}}</td>
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.departmentId?.name}}</td>
+        <td> <button (click)="editUser(user)">Edit</button> <button (click)="deleteUser(user)">Delete</button></td>
+      </tr>
+    </ng-template>
+  </table>
